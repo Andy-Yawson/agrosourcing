@@ -24,5 +24,21 @@ class RoleSeeder extends Seeder
         DB::table('roles')->insert([
             'name' => "Trucker"
         ]);
+        DB::table('admins')->insert([
+           'uuid' => \Illuminate\Support\Str::uuid(),
+           'name' => 'Isaac Danso Asiedu',
+           'password' => \Illuminate\Support\Facades\Hash::make('password'),
+           'email' => 'isaac.danso@agrosourcing.net',
+            'level' => 1,
+            'status' => 1
+        ]);
+        DB::table('admins')->insert([
+            'uuid' => \Illuminate\Support\Str::uuid(),
+            'name' => 'Richmond Nutsuglo',
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
+            'email' => 'rich.nutsuglo@agrosourcing.net',
+            'level' => 1,
+            'status' => 1
+        ]);
     }
 }

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//======== website routing =========
 Route::get('/', 'WebsiteController@home')->name('web.home');
 Route::get('/about', 'WebsiteController@about')->name('web.about');
 Route::get('/sourcemap', 'WebsiteController@sourcemap')->name('web.sourcemap');

@@ -25,9 +25,9 @@ class CreateFarmsTable extends Migration
             $table->integer('district_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('crop_id')
+            /*$table->foreign('crop_id')
                 ->references('id')
-                ->on('crops');
+                ->on('crops');*/
 
             $table->foreign('user_id')
                 ->references('id')

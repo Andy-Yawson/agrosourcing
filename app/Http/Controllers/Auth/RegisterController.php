@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Admin;
 use App\Http\Controllers\Controller;
+use App\Jobs\VerifyAccount;
 use App\Mail\RegisterMail;
 use App\Notifications\NewUser;
 use App\Notifications\NewUserAdmin;
@@ -94,7 +95,8 @@ class RegisterController extends Controller
         foreach ($admins as $admin){
             $admin->notify(new NewUserAdmin());
         }
-        Mail::to($user->email)->send(new RegisterMail($token,$user->name));
+        $job = (new VerifyAccount($token, $user->name,$user->email))->delay(Carbon::now()->addMinutes(1));
+        $this->dispatch($job);
 
         return redirect()->intended(route('user.login'))
             ->with('success','Your account was created, visit your email to verify your account.');

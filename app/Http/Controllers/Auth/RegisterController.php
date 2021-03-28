@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Admin;
 use App\Http\Controllers\Controller;
+use App\Jobs\AdminNotify;
+use App\Jobs\VerifyAccount;
 use App\Mail\RegisterMail;
 use App\Notifications\NewUser;
 use App\Notifications\NewUserAdmin;
@@ -88,13 +90,16 @@ class RegisterController extends Controller
             'user_id' => $user->id
         ]);
 
-        $user->notify(new NewUser($user->name,$token));
+        $job = (new VerifyAccount($token, $user->name, $user->email))->delay(Carbon::now()->addMinutes(2));
+        $this->dispatch($job);
+//        $user->notify(new NewUser($user->name,$token));
 
-        $admins = Admin::all();
+        $admins = Admin::where('level',1)->get();
         foreach ($admins as $admin){
-            $admin->notify(new NewUserAdmin());
+//            $admin->notify(new NewUserAdmin($admin));
+            $job = (new AdminNotify($admin->email))->delay(Carbon::now()->addMinutes(3));
+            $this->dispatch($job);
         }
-        Mail::to($user->email)->send(new RegisterMail($token,$user->name));
 
         return redirect()->intended(route('user.login'))
             ->with('success','Your account was created, visit your email to verify your account.');

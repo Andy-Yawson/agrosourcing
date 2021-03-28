@@ -18,6 +18,7 @@ class RegisterMail extends Mailable
      * Create a new message instance.
      *
      * @param $token
+     * @param $name
      */
     public function __construct($token,$name)
     {
@@ -32,12 +33,11 @@ class RegisterMail extends Mailable
      */
     public function build()
     {
-        return (new MailMessage())
-            ->line('New user account activation')
-            ->line('Hello '.$this->name . ',')
-            ->line('You are receiving this email to activate your account.')
-            ->action('Activate account',url('/verify/token/'.$this->token))
-            ->line('Thank you for using our application!');
-         //$this->view('mail.register')->with(['token'=>$this->token, 'name'=>$this->name]);
+        return $this->from(env('MAIL_FROM_ADDRESS'))
+            ->view('emails.new-user')
+            ->with([
+                'url' => url('/verify/token/'.$this->token),
+                'name' => $this->name
+            ]);
     }
 }

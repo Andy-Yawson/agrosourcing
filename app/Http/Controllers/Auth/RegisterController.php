@@ -90,7 +90,7 @@ class RegisterController extends Controller
             'user_id' => $user->id
         ]);
 
-        $job = (new VerifyAccount($token, $user->name, $user->email))->delay(Carbon::now()->addMinutes(2));
+        $job = (new VerifyAccount($token, $user->name, $user->email))->delay(Carbon::now()->addSeconds(30));
         $this->dispatch($job);
 //        $user->notify(new NewUser($user->name,$token));
 

@@ -82,12 +82,14 @@
         </div>
         @endif
     </div>
+    @if(auth()->user()->level == 1)
     <div class="card shadow mb-4">
         <div class="card-body">
             <h1>{{ $chart->options['chart_title'] }}</h1>
             {!! $chart->renderHtml() !!}
         </div>
     </div>
+    @endif
 @endsection
 @section('scripts')
     {!! $chart->renderChartJsLibrary() !!}

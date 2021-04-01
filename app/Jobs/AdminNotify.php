@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Mail\RegisterMail;
+use App\Mail\AdminNotifyMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -10,32 +10,21 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
-class VerifyAccount implements ShouldQueue
+class AdminNotify implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * @var string
-     */
-    private $token;
-    /**
-     * @var string
-     */
-    private $name;
+    private $message;
     private $email;
+
 
     /**
      * Create a new job instance.
      *
-     * @param string $token
-     * @param string $name
-     * @param string $email
+     * @param $email
      */
-    public function __construct(string $token, string $name, string $email)
+    public function __construct($email)
     {
-        //
-        $this->token = $token;
-        $this->name = $name;
         $this->email = $email;
     }
 
@@ -46,6 +35,6 @@ class VerifyAccount implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new RegisterMail($this->token,$this->name));
+        Mail::to($this->email)->send(new AdminNotifyMail());
     }
 }

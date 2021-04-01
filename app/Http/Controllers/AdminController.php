@@ -555,7 +555,12 @@ class AdminController extends Controller
     }
 
     public function informationSystem(){
-        $data = \auth()->user()->users;
+        if (\auth()->user()->level == 1){
+            $data = User::all();
+        }else{
+            $data = \auth()->user()->users;
+        }
+
         //$data = DB::table('users')->join('admin_user','admin_id','=',\auth()->user()->id)->get();
         //dd($data);
         $roles = Role::all();

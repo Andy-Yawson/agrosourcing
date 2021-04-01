@@ -29,7 +29,6 @@ class VerifyAccount implements ShouldQueue
      *
      * @param string $token
      * @param string $name
-     * @param string $email
      */
     public function __construct(string $token, string $name, string $email)
     {

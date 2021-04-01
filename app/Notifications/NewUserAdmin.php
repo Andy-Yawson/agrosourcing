@@ -14,11 +14,12 @@ class NewUserAdmin extends Notification
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param $admin
      */
-    public function __construct()
+    private $admin;
+    public function __construct($admin)
     {
-        //
+        $this->admin = $admin;
     }
 
     /**

@@ -570,7 +570,6 @@ class AdminController extends Controller
         $districts = District::all();
         return view('admin.user.data-entry',compact('users','districts'));
     }
-
     public function storeEntryUsers(Request $request){
         $admin = new Admin();
         $admin->name = $request->name;

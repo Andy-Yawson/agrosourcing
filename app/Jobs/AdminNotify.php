@@ -14,8 +14,7 @@ class AdminNotify implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $message;
-    private $email;
+    public $email;
 
 
     /**

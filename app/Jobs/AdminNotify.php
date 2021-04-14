@@ -35,6 +35,6 @@ class AdminNotify implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new AdminNotifyMail());
+        Mail::send(new AdminNotifyMail($this->email));
     }
 }

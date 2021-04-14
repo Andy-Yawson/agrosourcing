@@ -11,13 +11,15 @@ class AdminNotifyMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $email;
+
     /**
      * Create a new message instance.
-     *
+     * @param $email
      */
-    public function __construct()
+    public function __construct($email)
     {
-
+        $this->email = $email;
     }
 
     /**
@@ -27,7 +29,7 @@ class AdminNotifyMail extends Mailable
      */
     public function build()
     {
-        return $this->from(env('MAIL_FROM_ADDRESS'))
+        return $this->to($this->email)
             ->view('emails.new-user-notify')
             ->with([]);
     }

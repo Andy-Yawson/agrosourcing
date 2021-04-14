@@ -65,10 +65,6 @@ class LoginController extends Controller
                 return redirect()->back()
                     ->withInput($request->only('email','remember'))
                     ->with('error','Your account has been suspended');
-            }elseif ($user->status == 2){
-                return redirect()->back()
-                    ->withInput($request->only('email','remember'))
-                    ->with('error','Your account is verified and waiting for admin approval');
             }else{
                 if ($user->email_verified == 0){
                     return redirect()->back()

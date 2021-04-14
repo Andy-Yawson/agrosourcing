@@ -145,7 +145,7 @@ class RegisterController extends Controller
             ->update([
                     'email_verified'=> 1,
                     'verified_token' => '',
-                    'status' => 2
+                    'status' => 1
                 ]);
 
         return redirect()->intended(route('user.login'))

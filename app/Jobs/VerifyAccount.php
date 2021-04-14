@@ -17,12 +17,7 @@ class VerifyAccount implements ShouldQueue
     /**
      * @var string
      */
-    private $token;
-    /**
-     * @var string
-     */
-    private $name;
-    private $email;
+    public $token,$name,$email;
 
     /**
      * Create a new job instance.
@@ -46,6 +41,6 @@ class VerifyAccount implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new RegisterMail($this->token,$this->name));
+        Mail::send(new RegisterMail($this->token,$this->name,$this->email));
     }
 }

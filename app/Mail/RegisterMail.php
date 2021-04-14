@@ -12,18 +12,20 @@ class RegisterMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $token,$name;
+    public $token,$name,$email;
 
     /**
      * Create a new message instance.
      *
      * @param $token
      * @param $name
+     * @param $email
      */
-    public function __construct($token,$name)
+    public function __construct($token,$name,$email)
     {
         $this->token = $token;
         $this->name = $name;
+        $this->email = $email;
     }
 
     /**
@@ -33,7 +35,7 @@ class RegisterMail extends Mailable
      */
     public function build()
     {
-        return $this->from(env('MAIL_FROM_ADDRESS'))
+        return $this->to($this->email)
             ->view('emails.new-user')
             ->with([
                 'url' => url('/verify/token/'.$this->token),

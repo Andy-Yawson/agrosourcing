@@ -149,6 +149,6 @@ class RegisterController extends Controller
                 ]);
 
         return redirect()->intended(route('user.login'))
-            ->with('success','Your account was activated successfully, Waiting for admin to approve you!');
+            ->with('success','Your account was activated successfully!');
     }
 }

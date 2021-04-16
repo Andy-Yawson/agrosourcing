@@ -28,6 +28,7 @@
                                 <th>Name</th>
                                 <th>Phone</th>
                                 <th>User Roles</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -42,6 +43,7 @@
                                                 {{ $role->name }}@if($loop->iteration !== count($user->roles)),@endif
                                             @endforeach
                                         </td>
+                                        <td><a href="{{ route('admin.view.information.edit',$user->id) }}" class="btn btn-circle btn-primary"><i class="fa fa-pen"></i></a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -77,23 +79,23 @@
 
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="text" class="form-control" id="password" name="password" required>
+                                    <input type="text" class="form-control" id="password" name="password">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="dob">Date of Birth</label>
-                                    <input type="date" class="form-control" id="dob" name="dob" required placeholder="mm/dd/yyyy">
+                                    <input type="date" class="form-control" id="dob" name="dob"  placeholder="mm/dd/yyyy">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="phone">Phone</label>
-                                    <input type="number" class="form-control" id="phone" name="phone" required >
+                                    <input type="number" class="form-control" id="phone" name="phone" >
                                 </div>
 
                                 <div class="form-group">
                                     <label for="card_no">Ghana Card Number</label>
-                                    <input type="text" class="form-control" id="card_no" name="card_no" required >
+                                    <input type="text" class="form-control" id="card_no" name="card_no" >
                                 </div>
 
                                 <div class="form-group">

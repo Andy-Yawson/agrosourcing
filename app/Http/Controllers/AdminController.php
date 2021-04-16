@@ -395,7 +395,7 @@ class AdminController extends Controller
         $user->name =  $request->name;
         $user->phone = $request->phone;
         $user->email = $request->email;
-        $user->password = Hash::make($request->password);
+        $user->password = $request->password == null ? Hash::make('password') : Hash::make($request->password);
         $user->status = 1;
         $user->email_verified = 1;
         $user->uuid = Str::uuid();
@@ -566,6 +566,30 @@ class AdminController extends Controller
         //dd($data);
         $roles = Role::all();
         return view('admin.user.information',compact('data','roles'));
+    }
+
+    public function informationSystemEdit($id){
+        $user = User::find($id);
+        if ($user)
+            return view('admin.user.edit',compact('user'));
+        else
+            return redirect()->back()->with('error','No user found');
+    }
+
+    public function informationSystemEditStore(Request $request){
+        User::where('id',$request->user_id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone
+        ]);
+
+        Profile::where('user_id',$request->user_id)->update([
+            'card_no' => $request->card_no,
+            'dob' => $request->dob,
+            'company' => $request->company
+        ]);
+
+        return redirect()->route('admin.view.information')->with('success','User information details updated!');
     }
 
 

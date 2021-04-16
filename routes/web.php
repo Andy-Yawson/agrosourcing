@@ -148,6 +148,8 @@ Route::prefix('admin')->group(function (){
 
     Route::get('/information-system', 'AdminController@informationSystem')->name('admin.view.information');
     Route::post('/information-system', 'AdminController@storeUsers')->name('admin.store-users');
+    Route::get('/information-system/{userId}/edit', 'AdminController@informationSystemEdit')->name('admin.view.information.edit');
+    Route::post('/information-system/store', 'AdminController@informationSystemEditStore')->name('admin.view.information.store');
 
     Route::get('/suspend-user/{id}', 'AdminController@suspendUser')->name('admin.suspend.user');
     Route::get('/unsuspend-user/{id}', 'AdminController@unsuspendUser')->name('admin.unsuspend.user');

@@ -152,6 +152,7 @@ class FarmController extends Controller
         $farm->currency = $request->currency;
         $farm->quantity = $request->quantity;
         $farm->package_quantity = $request->package_quantity;
+        $farm->visible = 0;
 
         if ($request->has('organic')){
             $farm->organic = 1;

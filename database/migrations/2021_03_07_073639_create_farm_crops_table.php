@@ -24,7 +24,7 @@ class CreateFarmCropsTable extends Migration
             $table->string('quantity');
             $table->string('image');
             $table->integer('organic');
-            $table->integer('visible');
+            $table->integer('visible')->default(0);
             $table->timestamps();
 
             $table->foreign('farm_id')->references('id')->on('farms');

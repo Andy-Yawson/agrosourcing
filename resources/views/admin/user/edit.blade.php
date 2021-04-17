@@ -30,6 +30,13 @@
                                 <label for="email">Email</label>
                                 <input type="email" id="name" value="{{$user->email}}" name="email" class="form-control">
                             </div>
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <select class="form-control" id="gender" name="gender">
+                                    <option value="Male" @if($user->profile->gender == "Male")selected @endif>Male</option>
+                                    <option value="Female" @if($user->profile->gender == "Female")selected @endif>Female</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
                             <div class="form-group">
@@ -43,6 +50,16 @@
                             <div class="form-group">
                                 <label for="company">Company</label>
                                 <input type="text" id="company" value="{{$user->profile->company}}" name="company" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="roles">Choose Role</label>
+                                <select class="form-control select2-multi"
+                                        name="roles[]" multiple="multiple" id="roles">
+                                    @foreach($roles as $role)
+                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <input type="hidden" name="user_id" value="{{$user->id}}">
                         </div>

@@ -54,7 +54,18 @@ class AdminController extends Controller
             $farms = \auth()->user()->farms;
             $products = \auth()->user()->products;
             $warehouses =  \auth()->user()->warehouses;
-            return view('admin.dashboard',compact('chart','farms','products','warehouses'));
+            $users =  \auth()->user()->users;
+
+            $male = 0;$female = 0;
+            foreach ($users as $x){
+                if ($x->profile->gender == "Male"){
+                    $male++;
+                }else if($x->profile->gender == "Female"){
+                    $female++;
+                }
+            }
+
+            return view('admin.dashboard',compact('chart','farms','products','warehouses','users','male','female'));
         }else{
             $farms = Farm::all();
             $products = Product::all();
@@ -68,11 +79,10 @@ class AdminController extends Controller
     // ================ Farm Controllers ============
     public function addFarm(){
         $regions = Region::all();
-        $users = \auth()->user()->users;
+        $users = auth()->user()->level == 1 ? User::all() : \auth()->user()->users;
         $districts = District::all();
         return view('admin.farm.create',compact('regions','users','districts'));
     }
-
     public function viewFarm(){
         if (\auth()->user()->level == 1){
             $farms = Farm::all();
@@ -82,7 +92,6 @@ class AdminController extends Controller
             return view('admin.farm.view',compact('farms'));
         }
     }
-
     public function storeFarm(Request $request)
     {
         $this->validate($request,[
@@ -110,27 +119,23 @@ class AdminController extends Controller
         return redirect()->route('admin.view.farm')
             ->with('success','Farm added successfully!');
     }
-
     public function showFarm(FarmCrop $farm){
         $farm->visible = 2;
         $farm->save();
         return redirect()->back()
             ->with('success','Farm successfully updated!');
     }
-
     public function hideFarm(Farm $farm){
         $farm->visible = 0;
         $farm->save();
         return redirect()->route('admin.view.farm')
             ->with('success','Farm successfully updated!');
     }
-
     public function addFarmCrop(){
         $farms = \auth()->user()->farms;
         $crops = Crop::all();
         return view('admin.farm_crop.create-crop',compact('farms','crops'));
     }
-
     public function storeFarmCrop(Request $request){
         $this->validate($request,[
             'size' => 'required',
@@ -166,7 +171,6 @@ class AdminController extends Controller
         return redirect()->route('admin.view.farm')
             ->with('success','Farm crop added successfully!');
     }
-
     public function viewFarmCrop(Farm $farm){
         $crops = $farm->farmCrops;
         return view('admin.farm_crop.view',compact('crops'));
@@ -218,7 +222,7 @@ class AdminController extends Controller
     public function addWarehouse(){
         $crops = Crop::all();
         $regions = Region::all();
-        $users = \auth()->user()->users;
+        $users = auth()->user()->level == 1 ? User::all() : \auth()->user()->users;
         $districts = District::all();
         return view('admin.warehouse.create',compact('crops','regions','users','districts'));
     }
@@ -249,7 +253,7 @@ class AdminController extends Controller
     public function addProduct(){
         $crops = Crop::all();
         $regions = Region::all();
-        $users = \auth()->user()->users;
+        $users = auth()->user()->level == 1 ? User::all() : \auth()->user()->users;
         $districts = District::all();
         return view('admin.product.create',compact('crops','regions','users','districts'));
     }
@@ -570,10 +574,12 @@ class AdminController extends Controller
 
     public function informationSystemEdit($id){
         $user = User::find($id);
-        if ($user)
-            return view('admin.user.edit',compact('user'));
-        else
+        if ($user){
+            $roles = Role::all();
+            return view('admin.user.edit',compact('user','roles'));
+        }else{
             return redirect()->back()->with('error','No user found');
+        }
     }
 
     public function informationSystemEditStore(Request $request){
@@ -586,8 +592,18 @@ class AdminController extends Controller
         Profile::where('user_id',$request->user_id)->update([
             'card_no' => $request->card_no,
             'dob' => $request->dob,
-            'company' => $request->company
+            'company' => $request->company,
+            'gender' => $request->gender
         ]);
+
+        if ($request->roles){
+            $roles = DB::table('role_user')->where('user_id',$request->user_id)->get();
+            if ($roles){
+                DB::table('role_user')->where('user_id',$request->user_id)->delete();
+            }
+            $user = User::find($request->user_id);
+            $user->roles()->sync($request->roles,false);
+        }
 
         return redirect()->route('admin.view.information')->with('success','User information details updated!');
     }

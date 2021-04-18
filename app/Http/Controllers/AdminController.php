@@ -327,6 +327,7 @@ class AdminController extends Controller
         $product->wastes = $request->wastes;
         $product->currency = $request->currency;
         $product->quantity = $request->quantity;
+        $product->visible = 0;
 
         if ($request->hasFile('image')){
             $image = $request->file('image');

@@ -264,7 +264,8 @@ class HomeController extends Controller
         $region = \request('region');
 
         $farms = Farm::join('regions','regions.id','farms.region_id')
-            ->join('crops','crops.id','=','farms.crop_id')
+            ->join('farm_crops','farm_id','=','farms.id')
+            ->join('crops','crops.id','=','farm_crops.crop_id')
             ->where('crops.name','LIKE', '%'.$crop.'%')
             ->where('farms.region_id',$region)
             ->select('farms.*')
@@ -278,7 +279,8 @@ class HomeController extends Controller
             ->get();
 
         $products = Product::join('regions','regions.id','products.region_id')
-            ->where('products.materials','LIKE', '%'.$crop.'%')
+            ->join('processing_products', 'product_id','=','products.id')
+            ->where('processing_products.materials','LIKE', '%'.$crop.'%')
             ->where('products.region_id',$region)
             ->select('products.*')
             ->get();

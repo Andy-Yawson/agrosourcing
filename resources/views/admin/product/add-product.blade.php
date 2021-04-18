@@ -65,6 +65,11 @@
                             <option value="Kilogram">Kilogram</option>
                             <option value="Cubic feet">Cubic feet</option>
                             <option value="Cubic Meters">Cubic Meters</option>
+                            <option value="Crate">Crate</option>
+                            <option value="Bag">Bag</option>
+                            <option value="Bottle">Bottle</option>
+                            <option value="Unit">Unit</option>
+                            <option value="Box">Box</option>
                         </select>
                     </div>
                 </div>

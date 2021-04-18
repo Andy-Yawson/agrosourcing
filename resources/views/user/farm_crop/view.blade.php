@@ -45,7 +45,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $crop->currency }}{{ $crop->price }}</td>
-                                    <td>{{ $crop->package_quantity }} per {{ $crop->quantity }}</td>
+                                    <td>{{ $crop->package_quantity }} {{ $crop->quantity }}</td>
                                     <td>
                                         <a href="{{ asset('img/farms/'.$crop->image) }}" target="_blank" title="view image">
                                             <img src="{{ asset('img/farms/'.$crop->image) }}" alt="crop image" class="img-fluid" height="100px" width="60px">
@@ -57,7 +57,7 @@
                                         @elseif($crop->visible == 1)
                                             <a class="btn btn-warning text-white" disabled>Pending Approval</a>
                                         @elseif($crop->visible == 2)
-                                            <a class="btn btn-danger" href="{{ route('user.close.sale.farm', $crop->id) }}">Remove from live</a>
+                                            <a class="btn btn-danger" href="{{ route('user.close.sale.farm', $crop->id) }}">Remove from marketplace</a>
                                         @endif
                                     </td>
                                 </tr>

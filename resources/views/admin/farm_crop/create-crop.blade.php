@@ -29,7 +29,7 @@
                             <label for="">Select Farm*</label>
                             <select class="form-control" name="farm">
                                 @foreach($farms as $farm)
-                                    <option value="{{$farm->id}}">{{$farm->code}} - {{ $farm->district->name }}</option>
+                                    <option value="{{$farm->id}}">{{$farm->region->name}} - {{ $farm->district->name }} - {{$farm->code}}</option>
                                 @endforeach
                             </select>
                         </div>

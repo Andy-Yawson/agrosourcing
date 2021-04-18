@@ -23,7 +23,7 @@
                                             <h6 class="card-text">{{ $farm->farm->user->name }}'s Farm</h6>
                                             <p class="card-text">Crop Type: {{ $farm->crop->name }}</p>
                                             <p class="card-text">Farm Size: {{ $farm->size }}</p>
-                                            <p class="card-text">Price: {{$farm->currency}}{{ $farm->price }} per {{$farm->quantity}}</p>
+                                            <p class="card-text">Price: {{$farm->currency}}{{ $farm->price }} per {{$farm->package_quantity}}{{$farm->quantity}}</p>
                                             <a href="{{ route('user.view.orderList.detail',['id'=>$farm->id,'type'=>'farm']) }}" class="btn btn-circle btn-primary"><i class="fa fa-cart-plus"></i></a>
                                             <p class="card-text"><small class="text-muted">Last updated {{\Carbon\Carbon::parse($farm->updated_at)->diffForHumans()}}</small></p>
                                         </div>

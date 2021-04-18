@@ -129,8 +129,10 @@
                         <h4 class="font-weight-light mb-4">Farm Waste(s) Generated</h4>
                         @if(count($farms) > 0)
                             @foreach($farms as $farm)
-                                @foreach($farm->crop->wastes as $waste)
-                                    <p class="font-weight-bold">- {{ $waste->name }}</p>
+                                @foreach($farm->farmCrops as $data)
+                                    @foreach($data->crop->wastes as $waste)
+                                        <p class="font-weight-bold">- {{ $waste->name }}</p>
+                                    @endforeach
                                 @endforeach
                             @endforeach
                         @else

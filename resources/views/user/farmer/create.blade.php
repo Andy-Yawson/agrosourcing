@@ -58,6 +58,13 @@
                         @endforeach
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="">Community (Optional)</label>
+                    <input type="text" class="form-control" name="community">
+                </div>
+
+
                 <input type="hidden" name="district_id" id="district_id">
 
 

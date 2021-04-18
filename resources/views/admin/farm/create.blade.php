@@ -69,6 +69,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="">Community (Optional)</label>
+                    <input type="text" class="form-control" name="community">
+                </div>
+
+                <div class="form-group">
                     <button class="btn btn-primary" type="submit">Add Farm Details <i class="fa fa-arrow-right"></i></button>
                 </div>
             </form>

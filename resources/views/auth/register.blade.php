@@ -55,7 +55,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Choose Role</label>
+                                        <label>Who are you?</label>
                                         <select class="form-control select2-multi"
                                                 name="roles[]" multiple="multiple" id="roles">
                                             @foreach($roles as $role)

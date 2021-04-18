@@ -136,7 +136,7 @@ class AdminController extends Controller
             ->with('success','Farm successfully updated!');
     }
     public function addFarmCrop(){
-        $farms = \auth()->user()->farms;
+        $farms = \auth()->user()->level == 1 ? Farm::all() : \auth()->user()->farms;
         $crops = Crop::all();
         return view('admin.farm_crop.create-crop',compact('farms','crops'));
     }

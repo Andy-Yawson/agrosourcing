@@ -43,9 +43,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $farms = Farm::where('visible',2)->get();
-        $products = Product::where('visible',2)->get();
-        $warehouses = Warehouse::where('visible',2)->get();
+        $farms = Farm::where('user_id',\auth()->user()->id)->get();
+        $products = Product::where('user_id',\auth()->user()->id)->get();
+        $warehouses = Warehouse::where('user_id',\auth()->user()->id)->get();
         $orders = Order::where('user_id',\auth()->user()->id)->get();
 
         return view('user.dashboard',compact('farms','products','warehouses','orders'));

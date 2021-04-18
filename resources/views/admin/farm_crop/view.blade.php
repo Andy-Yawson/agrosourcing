@@ -52,14 +52,12 @@
                                         </a>
                                     </td>
                                     <td>
-                                        @if(auth()->user()->level == 1)
-                                            @if($crop->visible == 1)
-                                                <a class="btn btn-success" href="{{ route('admin.show.farm',$crop->id) }}"><i class="fa fa-thumbs-up"></i> Go live</a>
-                                            @elseif($crop->visible == 0)
-                                                <p class="text-success">unpublished</p>
-                                            @else
-                                                <p class="text-success">Active</p>
-                                            @endif
+                                        @if($crop->visible == 1)
+                                            <a class="btn btn-success" href="{{ route('admin.show.farm',$crop->id) }}"><i class="fa fa-thumbs-up"></i> Go live</a>
+                                        @elseif($crop->visible == 0)
+                                            <p class="text-success">unpublished</p>
+                                        @else
+                                            <p class="text-success">Active</p>
                                         @endif
                                     </td>
                                 </tr>

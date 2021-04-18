@@ -36,7 +36,7 @@
                                 <h6 class="card-text"></h6>
                                 <p class="card-text">Crop Type: {{$crop->crop->name}}</p>
                                 <p class="card-text">Farm Size: {{ $crop->size }} acres</p>
-                                <p class="card-text">Price: {{ $crop->currency }} {{ $crop->price }} per {{ $crop->quantity }}</p>
+                                <p class="card-text">Price: {{ $crop->currency }} {{ $crop->price }} per {{ $crop->package_quantity }}{{ $crop->quantity }}</p>
                                 <a href="{{ route('user.view.orderList.detail',['id'=>$crop->id,'type'=>'farm']) }}" class="btn btn-circle btn-primary"><i class="fa fa-cart-plus"></i></a>
                                 <p class="card-text"><small class="text-muted">Last updated {{\Carbon\Carbon::parse($crop->updated_at)->diffForHumans()}}</small></p>
                             </div>

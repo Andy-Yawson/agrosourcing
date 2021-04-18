@@ -16,10 +16,12 @@
                             <thead>
                             <tr>
                                 <th>Created On</th>
-                                <th>longitude</th>
-                                <th>latitude</th>
-                                <th>size</th>
-                                <th>region</th>
+                                <th>Longitude</th>
+                                <th>Latitude</th>
+                                <th>Size</th>
+                                <th>Region</th>
+                                <th>Community</th>
+                                <th>Code</th>
                                 <th>Farm Crops</th>
                             </tr>
                             </thead>
@@ -31,6 +33,8 @@
                                     <td>{{ $farm->latitude }}</td>
                                     <td>{{ $farm->size }}</td>
                                     <td>{{ $farm->region->name }}</td>
+                                    <td>{{ $farm->community == null ? "N/A" : $farm->community}}</td>
+                                    <td>{{ $farm->code}}</td>
                                     <td><a href="{{ route('user.view.farm.crop',$farm->id) }}" class="btn btn-primary">View</a></td>
                                 </tr>
                             @endforeach

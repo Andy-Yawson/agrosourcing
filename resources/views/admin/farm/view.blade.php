@@ -20,6 +20,8 @@
                                 <th>latitude</th>
                                 <th>size</th>
                                 <th>region</th>
+                                <th>Community</th>
+                                <th>Farm Code</th>
                                 <th>Farm Crop</th>
                             </tr>
                             </thead>
@@ -31,6 +33,8 @@
                                     <td>{{ $farm->latitude }}</td>
                                     <td>{{ $farm->size }}</td>
                                     <td>{{ $farm->region->name }}</td>
+                                    <td>{{ $farm->community == null ? "N/A" : $farm->community}}</td>
+                                    <td>{{ $farm->code}}</td>
                                     <td><a href="{{ route('admin.view.farm.crop',$farm->id) }}" class="btn btn-primary">View</a></td>
                                 </tr>
                             @endforeach

@@ -101,6 +101,8 @@ class AdminController extends Controller
             'district' => 'required'
         ]);
 
+        $code = substr(sha1(time()),0,6);
+
         $farm = new Farm();
         $farm->longitude = $request->longitude;
         $farm->latitude = $request->latitude;
@@ -108,6 +110,8 @@ class AdminController extends Controller
         $farm->region_id = $request->region;
         $farm->user_id = $request->user_id;
         $farm->district_id = $request->district;
+        $farm->community = $request->community;
+        $farm->code = $code;
         $farm->save();
 
         \auth()->user()->farms()->sync($farm, false);
@@ -660,7 +664,8 @@ class AdminController extends Controller
         $region = \request('region');
 
         $farms = Farm::join('regions','regions.id','farms.region_id')
-            ->join('crops','crops.id','=','farms.crop_id')
+            ->join('farm_crops','farm_id','=','farms.id')
+            ->join('crops','crops.id','=','farm_crops.crop_id')
             ->where('crops.name','LIKE', '%'.$crop.'%')
             ->where('farms.region_id',$region)
             ->select('farms.*')
@@ -674,10 +679,12 @@ class AdminController extends Controller
             ->get();
 
         $products = Product::join('regions','regions.id','products.region_id')
-            ->where('products.materials','LIKE', '%'.$crop.'%')
+            ->join('processing_products', 'product_id','=','products.id')
+            ->where('processing_products.materials','LIKE', '%'.$crop.'%')
             ->where('products.region_id',$region)
             ->select('products.*')
             ->get();
+
 
         return view('admin.map.map',compact('farms','warehouses','products'));
     }

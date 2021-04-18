@@ -56,6 +56,8 @@ class FarmController extends Controller
             'latitude' => 'required',
         ]);
 
+        $code = substr(sha1(time()),0,6);
+
          $farm = new Farm();
          $farm->longitude = $request->longitude;
          $farm->latitude = $request->latitude;
@@ -63,7 +65,9 @@ class FarmController extends Controller
          $farm->user_id = auth()->user()->id;
          $farm->region_id = $request->region;
          $farm->district_id = $request->district;
-        $farm->save();
+         $farm->community = $request->community;
+         $farm->code = $code;
+         $farm->save();
 
 
         $title = "Farm";

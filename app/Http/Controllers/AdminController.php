@@ -96,8 +96,6 @@ class AdminController extends Controller
     {
         $this->validate($request,[
             'size' => 'required',
-            'longitude' => 'required',
-            'latitude' => 'required',
             'district' => 'required'
         ]);
 
@@ -186,8 +184,6 @@ class AdminController extends Controller
     {
         $this->validate($request,[
             'region' => 'required',
-            'longitude' => 'required',
-            'latitude' => 'required',
             'price' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
@@ -277,8 +273,6 @@ class AdminController extends Controller
         $product = Product::create([
             'name' => $request->business,
             'region_id' => $request->region,
-            'longitude' => $request->longitude,
-            'latitude' => $request->latitude,
             'user_id' => $request->user_id,
             'district_id' => $request->district
         ]);

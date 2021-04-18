@@ -52,8 +52,6 @@ class FarmController extends Controller
     {
         $this->validate($request,[
             'size' => 'required',
-            'longitude' => 'required',
-            'latitude' => 'required',
         ]);
 
         $code = substr(sha1(time()),0,6);

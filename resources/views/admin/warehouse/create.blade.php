@@ -20,13 +20,13 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="Longitude">Longitude*</label>
-                            <input type="text" name="longitude" class="form-control" required value="{{ old('longitude') }}">
+                            <input type="text" name="longitude" class="form-control" value="{{ old('longitude') }}">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="Latitude">Latitude*</label>
-                            <input type="text" name="latitude" class="form-control" required value="{{ old('latitude') }}">
+                            <input type="text" name="latitude" class="form-control" value="{{ old('latitude') }}">
                         </div>
                     </div>
                 </div>

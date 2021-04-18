@@ -50,8 +50,6 @@ class WarehouseController extends Controller
     {
         $this->validate($request,[
             'region' => 'required',
-            'longitude' => 'required',
-            'latitude' => 'required',
             'price' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);

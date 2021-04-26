@@ -24,4 +24,8 @@ class Product extends Model
     public function processingProducts(){
         return $this->hasMany(ProcessingProduct::class);
     }
+
+    public function district(){
+        return $this->belongsTo(District::class, 'district_id', 'id', 'districts');
+    }
 }

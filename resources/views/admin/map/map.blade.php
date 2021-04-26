@@ -44,7 +44,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        Number of Related Farms
+                                        Number of {{request('crop')}} Farms
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                                         {{ count($farms) }}
@@ -63,7 +63,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        Total Size of Related Farms (Acres)
+                                        Total Size of {{request('crop')}} Farms (Acres)
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                                         @if(count($farms) > 0)
@@ -90,7 +90,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        Number of Related Warehouses
+                                        Number of {{request('crop')}} Warehouses
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                                         {{ count($warehouses) }}
@@ -109,7 +109,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        Number of Related Processing Companies
+                                        Number of {{request('crop')}} Processing Companies
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                                         {{ count($products) }}

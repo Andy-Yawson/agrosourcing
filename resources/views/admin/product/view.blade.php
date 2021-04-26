@@ -2,7 +2,7 @@
 @section('content')
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">View Products</h1>
+        <h1 class="h3 mb-0 text-gray-800">Available Processing Sites</h1>
     </div>
 
     <div class="card shadow mb-4 p-2">
@@ -16,10 +16,12 @@
                             <thead>
                             <tr>
                                 <th>Created On</th>
+                                <th>Owner</th>
                                 <th>Name</th>
+                                <th>Region</th>
+                                <th>District</th>
                                 <th>longitude</th>
                                 <th>latitude</th>
-                                <th>Region</th>
                                 <th>Products</th>
                             </tr>
                             </thead>
@@ -27,10 +29,12 @@
                             @foreach($products as $product)
                                 <tr>
                                     <td>{{ \Carbon\Carbon::parse($product->created_at)->format('dS M Y') }}</td>
+                                    <td>{{ $product->user->name }}</td>
                                     <td>{{ $product->name }}</td>
+                                    <td>{{ $product->region->name }}</td>
+                                    <td>{{ $product->district->name }}</td>
                                     <td>{{ $product->longitude }}</td>
                                     <td>{{ $product->latitude }}</td>
-                                    <td>{{ $product->region->name }}</td>
 
                                     <td><a href="{{ route('admin.view.processing.product',$product->id) }}" class="btn btn-primary">View</a></td>
                                 </tr>

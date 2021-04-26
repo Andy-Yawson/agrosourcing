@@ -30,7 +30,7 @@
                             @foreach($warehouses as $warehouse)
                                 <tr>
                                     <td>{{ \Carbon\Carbon::parse($warehouse->created_at)->format('dS M Y') }}</td>
-                                    <td>{{ $warehouse->user->name }}</td>
+                                    <td>@if ($warehouse->user_id != null){{$warehouse->user->name}}@else N/A @endif</td>
                                     <td>{{ $warehouse->region->name }}</td>
                                     <td>{{ $warehouse->district->name }}</td>
                                     <td>{{ $warehouse->price }}</td>

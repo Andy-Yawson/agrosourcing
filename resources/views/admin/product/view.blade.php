@@ -29,7 +29,7 @@
                             @foreach($products as $product)
                                 <tr>
                                     <td>{{ \Carbon\Carbon::parse($product->created_at)->format('dS M Y') }}</td>
-                                    <td>{{ $product->user->name }}</td>
+                                    <td>@if ($product->user_id != null){{$product->user->name}}@else N/A @endif</td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->region->name }}</td>
                                     <td>{{ $product->district->name }}</td>

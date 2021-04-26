@@ -209,7 +209,7 @@ class AdminController extends Controller
         $warehouse->save();
         $warehouse->crops()->sync($request->crops, false);
 
-        \auth()->user()->products()->sync($warehouse, false);
+        \auth()->user()->warehouses()->sync($warehouse, false);
 
         //sending notification
         $message = "You added a new warehouse project";
@@ -267,9 +267,7 @@ class AdminController extends Controller
         }
 
     }
-    public function storeProduct(Request $request)
-    {
-
+    public function storeProduct(Request $request){
         $product = Product::create([
             'name' => $request->business,
             'region_id' => $request->region,

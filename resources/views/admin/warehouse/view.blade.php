@@ -16,11 +16,13 @@
                             <thead>
                             <tr>
                                 <th>Created On</th>
+                                <th>Owner</th>
                                 <th>Region</th>
-                                <th>longitude</th>
-                                <th>latitude</th>
+                                <th>District</th>
                                 <th>Price</th>
                                 <th>Crop Type</th>
+                                <th>longitude</th>
+                                <th>latitude</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -28,15 +30,17 @@
                             @foreach($warehouses as $warehouse)
                                 <tr>
                                     <td>{{ \Carbon\Carbon::parse($warehouse->created_at)->format('dS M Y') }}</td>
+                                    <td>{{ $warehouse->user->name }}</td>
                                     <td>{{ $warehouse->region->name }}</td>
-                                    <td>{{ $warehouse->longitude }}</td>
-                                    <td>{{ $warehouse->latitude }}</td>
+                                    <td>{{ $warehouse->district->name }}</td>
                                     <td>{{ $warehouse->price }}</td>
                                     <td>
                                         @foreach($warehouse->crops as $crop)
                                             {{ $crop->name }}
                                         @endforeach
                                     </td>
+                                    <td>{{ $warehouse->longitude }}</td>
+                                    <td>{{ $warehouse->latitude }}</td>
                                     <td>
                                         @if(auth()->user()->level == 1)
                                             @if($warehouse->visible == 1)

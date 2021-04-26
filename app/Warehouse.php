@@ -23,4 +23,8 @@ class Warehouse extends Model
     public function admins(){
         return $this->belongsToMany(Admin::class);
     }
+
+    public function district(){
+        return $this->belongsTo(District::class, 'district_id', 'id', 'districts');
+    }
 }

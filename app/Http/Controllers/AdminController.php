@@ -140,13 +140,11 @@ class AdminController extends Controller
     }
     public function storeFarmCrop(Request $request){
         $this->validate($request,[
-            'size' => 'required',
             'price' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         $farm = new FarmCrop();
-        $farm->size = $request->size;
         $farm->farm_id = $request->farm;
         $farm->crop_id = $request->crop;
         $farm->price = $request->price;
@@ -154,6 +152,15 @@ class AdminController extends Controller
         $farm->quantity = $request->quantity;
         $farm->package_quantity = $request->package_quantity;
         $farm->visible = 1;
+        $farm->crop_variety = $request->crop_variety;
+        $farm->moisture_content = $request->moisture_content . 'g/m³';
+        $farm->available_start = $request->available_start;
+        $farm->available_end = $request->available_end;
+        $farm->total_stock_available = $request->total_stock_available;
+        $farm->total_stock_available_unit = $request->total_stock_available_unit;
+        $farm->minimum_order_quantity = $request->minimum_order_quantity;
+        $farm->minimum_order_quantity_unit = $request->minimum_order_quantity_unit;
+        $farm->delivery_cost_description = $request->delivery_cost_description;
 
         if ($request->has('organic')){
             $farm->organic = 1;
@@ -176,6 +183,10 @@ class AdminController extends Controller
     public function viewFarmCrop(Farm $farm){
         $crops = $farm->farmCrops;
         return view('admin.farm_crop.view',compact('crops'));
+    }
+    public function viewCropDetail($id){
+        $farmCrop = FarmCrop::where('id',$id)->first();
+        return view('admin.farm_crop.detail',compact('farmCrop'));
     }
 
 
@@ -681,5 +692,6 @@ class AdminController extends Controller
 
         return view('admin.map.map',compact('farms','warehouses','products'));
     }
+
 
 }

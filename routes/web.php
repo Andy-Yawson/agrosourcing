@@ -57,6 +57,7 @@ Route::prefix('user')->group(function (){
     Route::post('/add-farm-crop', 'FarmController@storeFarmCrop')->name('user.store.farm.crop');
     Route::get('/view-farm', 'FarmController@index')->name('user.view.farm');
     Route::get('/{farm}/view-farm-crops', 'FarmController@viewCrops')->name('user.view.farm.crop');
+    Route::get('/{id}/view-farm-crops-detail', 'FarmController@viewCropDetail')->name('user.detail.farm.crop');
 
     //========= AGGREGATOR ===========
     Route::get('/add-warehouse','WarehouseController@create')->name('user.add.warehouse');
@@ -140,6 +141,7 @@ Route::prefix('admin')->group(function (){
     Route::get('{farm}/view-farm-crop', 'AdminController@viewFarmCrop')->name('admin.view.farm.crop');
     Route::get('/show-farm/{farm}', 'AdminController@showFarm')->name('admin.show.farm');
     Route::get('/hide-farm/{farm}', 'AdminController@hideFarm')->name('admin.hide.farm');
+    Route::get('/{id}/view-farm-crops-detail', 'AdminController@viewCropDetail')->name('admin.detail.farm.crop');
 
     //========== Users============
     Route::get('/users', 'AdminController@viewUsers')->name('admin.view.users');

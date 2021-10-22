@@ -82,54 +82,14 @@ class FarmController extends Controller
             ->with('success','Farm added successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Farm  $farm
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Farm $farm)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Farm  $farm
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Farm $farm)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Farm  $farm
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Farm $farm)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Farm  $farm
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Farm $farm)
-    {
-        //
-    }
-
     public function viewCrops(Farm $farm){
         $crops = $farm->farmCrops;
         return view('user.farm_crop.view',compact('crops'));
+    }
+
+    public function viewCropDetail($id){
+        $farmCrop = FarmCrop::where('id',$id)->first();
+        return view('user.farm_crop.detail',compact('farmCrop'));
     }
 
     public function addCrop(){
@@ -141,13 +101,11 @@ class FarmController extends Controller
     public function storeFarmCrop(Request $request)
     {
         $this->validate($request,[
-            'size' => 'required',
             'price' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:3048'
         ]);
 
         $farm = new FarmCrop();
-        $farm->size = $request->size;
         $farm->farm_id = $request->farm;
         $farm->crop_id = $request->crop;
         $farm->price = $request->price;
@@ -155,6 +113,15 @@ class FarmController extends Controller
         $farm->quantity = $request->quantity;
         $farm->package_quantity = $request->package_quantity;
         $farm->visible = 0;
+        $farm->crop_variety = $request->crop_variety;
+        $farm->moisture_content = $request->moisture_content . 'g/m³';
+        $farm->available_start = $request->available_start;
+        $farm->available_end = $request->available_end;
+        $farm->total_stock_available = $request->total_stock_available;
+        $farm->total_stock_available_unit = $request->total_stock_available_unit;
+        $farm->minimum_order_quantity = $request->minimum_order_quantity;
+        $farm->minimum_order_quantity_unit = $request->minimum_order_quantity_unit;
+        $farm->delivery_cost_description = $request->delivery_cost_description;
 
         if ($request->has('organic')){
             $farm->organic = 1;

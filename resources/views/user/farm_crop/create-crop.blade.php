@@ -17,25 +17,14 @@
         <div class="card-body">
             <form action="{{ route('user.store.farm.crop') }}" method="post" enctype="multipart/form-data">
                 @csrf
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="">Farm Crop Size(acres)*</label>
-                            <input type="number" class="form-control" name="size" value="{{ old('size') }}">
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="">Select Farm*</label>
-                            <select class="form-control" name="farm">
-                                @foreach($farms as $farm)
-                                    <option value="{{$farm->id}}">{{$farm->region->name}} - {{ $farm->district->name }} - {{$farm->code}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="">Select Farm*</label>
+                    <select class="form-control" name="farm">
+                        @foreach($farms as $farm)
+                            <option value="{{$farm->id}}">{{$farm->region->name}} - {{ $farm->district->name }} - {{$farm->code}}</option>
+                        @endforeach
+                    </select>
                 </div>
-
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
@@ -88,7 +77,87 @@
                         </select>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="">Crop Variety*</label>
+                            <input type="text" class="form-control" name="crop_variety" value="{{ old('crop_variety') }}">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="">Dryness/ Moisture Content*</label>
+                            <input type="number" class="form-control" name="moisture_content" value="{{ old('moisture_content') }}">
+                            <small>g/m³ (grams of water per cubic meter)</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="">Availability Period</label>
+                            <div class="row">
+                                <div class="col">
+                                    <small>Start date</small>
+                                    <input type="date" class="form-control" name="available_start" value="{{ old('available_start') }}">
+                                </div>
+                                <div class="col">
+                                    <small>End date</small>
+                                    <input type="date" class="form-control" name="available_end" value="{{ old('available_end') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="">Total Stock Available</label>
+                            <div class="row">
+                                <div class="col">
+                                    <small>Quantity</small>
+                                    <input type="number" class="form-control" name="total_stock_available" value="{{ old('total_stock_available') }}">
+                                </div>
+                                <div class="col">
+                                    <small>Units</small>
+                                    <select class="form-control" name="total_stock_available_unit">
+                                        <option value="kg">kg</option>
+                                        <option value="li">li</option>
+                                        <option value="ton">ton(s)</option>
+                                        <option value="bag">bag(s)</option>
+                                        <option value="box">box(es)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="">Minimum Order Quantity</label>
+                            <div class="row">
+                                <div class="col">
+                                    <small>Quantity</small>
+                                    <input type="number" class="form-control" name="minimum_order_quantity" value="{{ old('minimum_order_quantity') }}">
+                                </div>
+                                <div class="col">
+                                    <small>Units</small>
+                                    <select class="form-control" name="minimum_order_quantity_unit">
+                                        <option value="kg">kg</option>
+                                        <option value="li">li</option>
+                                        <option value="ton">ton(s)</option>
+                                        <option value="bag">bag(s)</option>
+                                        <option value="box">box(es)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="">Delivery Cost Description</label>
+                        <textarea name="delivery_cost_description" rows="3" class="form-control"></textarea>
+                    </div>
+                </div>
                 <div class="form-group mt-4 mb-4">
                     <p>Enable this if farm is organic</p>
                     <label class="switch">
@@ -96,9 +165,8 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-
-                <div class="form-group">
-                    <button class="btn btn-primary" type="submit">Add Farm Crop <i class="fa fa-arrow-right"></i></button>
+                <div class="form-group mt-4">
+                    <button class="btn btn-primary w-50" type="submit">Add Farm Crop <i class="fa fa-arrow-right"></i></button>
                 </div>
             </form>
         </div>

@@ -1,8 +1,7 @@
-@extends('admin.master')
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('css/slider.css') }}">
-@endsection
-@section('content')
+<?php $__env->startSection('styles'); ?>
+    <link rel="stylesheet" href="<?php echo e(asset('css/slider.css')); ?>">
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Add New Farm Crop</h1>
@@ -13,16 +12,16 @@
     <div class="card shadow mb-4 p-5">
         <h5 class="font-weight-lighter">PROVIDE FARM DETAILS</h5>
         <p class="font-weight-normal">Choose a crop type, the wastes will be generated for you.</p>
-        @include('flash._notify')
+        <?php echo $__env->make('flash._notify', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <div class="card-body">
-            <form action="{{ route('admin.store.farm.crop') }}" method="post" enctype="multipart/form-data">
-                @csrf
+            <form action="<?php echo e(route('user.store.farm.crop')); ?>" method="post" enctype="multipart/form-data">
+                <?php echo csrf_field(); ?>
                 <div class="form-group">
                     <label for="">Select Farm*</label>
                     <select class="form-control" name="farm">
-                        @foreach($farms as $farm)
-                            <option value="{{$farm->id}}">{{$farm->region->name}} - {{ $farm->district->name }} - {{$farm->code}}</option>
-                        @endforeach
+                        <?php $__currentLoopData = $farms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $farm): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($farm->id); ?>"><?php echo e($farm->region->name); ?> - <?php echo e($farm->district->name); ?> - <?php echo e($farm->code); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                 </div>
                 <div class="row">
@@ -30,16 +29,16 @@
                         <div class="form-group">
                             <label for="">Select Crop*</label>
                             <select name="crop" class="form-control">
-                                @foreach($crops as $crop)
-                                    <option value="{{$crop->id}}">{{$crop->name}}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $crops; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $crop): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($crop->id); ?>"><?php echo e($crop->name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="image">Farm Image*</label>
-                            <input type="file" name="image" class="form-control" value="{{ old('image') }}">
+                            <input type="file" name="image" class="form-control" value="<?php echo e(old('image')); ?>">
                         </div>
                     </div>
                 </div>
@@ -53,13 +52,13 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label>Price*</label>
-                            <input type="number" class="form-control" name="price" value="{{ old('price') }}" required>
+                            <input type="number" class="form-control" name="price" value="<?php echo e(old('price')); ?>" required>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label>Package Quantity*</label>
-                            <input type="number" class="form-control" name="package_quantity" value="{{ old('package_quantity') }}" required>
+                            <input type="number" class="form-control" name="package_quantity" value="<?php echo e(old('package_quantity')); ?>" required>
                         </div>
                     </div>
                     <div class="col-3">
@@ -81,13 +80,13 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="">Crop Variety*</label>
-                            <input type="text" class="form-control" name="crop_variety" value="{{ old('crop_variety') }}">
+                            <input type="text" class="form-control" name="crop_variety" value="<?php echo e(old('crop_variety')); ?>">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="">Dryness/ Moisture Content*</label>
-                            <input type="number" class="form-control" name="moisture_content" value="{{ old('moisture_content') }}">
+                            <input type="number" class="form-control" name="moisture_content" value="<?php echo e(old('moisture_content')); ?>">
                             <small>g/m³ (grams of water per cubic meter)</small>
                         </div>
                     </div>
@@ -99,11 +98,11 @@
                             <div class="row">
                                 <div class="col">
                                     <small>Start date</small>
-                                    <input type="date" class="form-control" name="available_start" value="{{ old('available_start') }}">
+                                    <input type="date" class="form-control" name="available_start" value="<?php echo e(old('available_start')); ?>">
                                 </div>
                                 <div class="col">
                                     <small>End date</small>
-                                    <input type="date" class="form-control" name="available_end" value="{{ old('available_end') }}">
+                                    <input type="date" class="form-control" name="available_end" value="<?php echo e(old('available_end')); ?>">
                                 </div>
                             </div>
                         </div>
@@ -114,7 +113,7 @@
                             <div class="row">
                                 <div class="col">
                                     <small>Quantity</small>
-                                    <input type="number" class="form-control" name="total_stock_available" value="{{ old('total_stock_available') }}">
+                                    <input type="number" class="form-control" name="total_stock_available" value="<?php echo e(old('total_stock_available')); ?>">
                                 </div>
                                 <div class="col">
                                     <small>Units</small>
@@ -138,7 +137,7 @@
                             <div class="row">
                                 <div class="col">
                                     <small>Quantity</small>
-                                    <input type="number" class="form-control" name="minimum_order_quantity" value="{{ old('minimum_order_quantity') }}">
+                                    <input type="number" class="form-control" name="minimum_order_quantity" value="<?php echo e(old('minimum_order_quantity')); ?>">
                                 </div>
                                 <div class="col">
                                     <small>Units</small>
@@ -165,11 +164,12 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-
-                <div class="form-group">
-                    <button class="btn btn-primary" type="submit">Add Farm Crop <i class="fa fa-arrow-right"></i></button>
+                <div class="form-group mt-4">
+                    <button class="btn btn-primary w-50" type="submit">Add Farm Crop <i class="fa fa-arrow-right"></i></button>
                 </div>
             </form>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('user.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/agrosourcing/resources/views/user/farm_crop/create-crop.blade.php ENDPATH**/ ?>

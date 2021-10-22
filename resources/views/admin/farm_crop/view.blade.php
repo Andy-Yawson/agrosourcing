@@ -17,12 +17,10 @@
                             <tr>
                                 <th>Created On</th>
                                 <th>Crop</th>
-                                <th>Size(Acres)</th>
                                 <th>Waste</th>
                                 <th>Organic</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
-                                <th>Image</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -31,7 +29,6 @@
                                 <tr>
                                     <td>{{ \Carbon\Carbon::parse($crop->created_at)->format('dS M Y') }}</td>
                                     <td>{{ $crop->crop->name }}</td>
-                                    <td>{{ $crop->size }}</td>
                                     <td>
                                         @foreach($crop->crop->wastes as $waste)
                                             <p>{{$waste->name}}</p>
@@ -47,11 +44,6 @@
                                     <td>{{ $crop->currency }}{{ $crop->price }}</td>
                                     <td>{{ $crop->package_quantity }} {{ $crop->quantity }}</td>
                                     <td>
-                                        <a href="{{ asset('img/farms/'.$crop->image) }}" target="_blank" title="view image">
-                                            <img src="{{ asset('img/farms/'.$crop->image) }}" alt="crop image" class="img-fluid" height="100px" width="60px">
-                                        </a>
-                                    </td>
-                                    <td>
                                         @if($crop->visible == 1)
                                             <a class="btn btn-success" href="{{ route('admin.show.farm',$crop->id) }}"><i class="fa fa-thumbs-up"></i> Go live</a>
                                         @elseif($crop->visible == 0)
@@ -59,6 +51,7 @@
                                         @else
                                             <p class="text-success">Active</p>
                                         @endif
+                                        <a class="btn btn-success" href="{{ route('admin.detail.farm.crop', $crop->id) }}">Details</a>
                                     </td>
                                 </tr>
                             @endforeach

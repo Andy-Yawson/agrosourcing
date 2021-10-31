@@ -1,8 +1,7 @@
-@extends('admin.master')
-@section('styles')
-    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
-@endsection
-@section('content')
+<?php $__env->startSection('styles'); ?>
+    <link href="<?php echo e(asset('css/select2.min.css')); ?>" rel="stylesheet">
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Warehouse</h1>
@@ -12,21 +11,21 @@
         <div class="card-body">
             <h5 class="font-weight-lighter">PROVIDE WAREHOUSE DETAILS</h5>
             <p class="font-weight-normal">Choose a crop type, the wastes will be generated for you.</p>
-            @include('flash._notify')
-            <form action="{{ route('admin.store.warehouse') }}" method="post" enctype="multipart/form-data">
-                @csrf
+            <?php echo $__env->make('flash._notify', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            <form action="<?php echo e(route('admin.store.warehouse')); ?>" method="post" enctype="multipart/form-data">
+                <?php echo csrf_field(); ?>
 
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
                             <label for="Longitude">Longitude*</label>
-                            <input type="text" name="longitude" class="form-control" value="{{ old('longitude') }}">
+                            <input type="text" name="longitude" class="form-control" value="<?php echo e(old('longitude')); ?>">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="Latitude">Latitude*</label>
-                            <input type="text" name="latitude" class="form-control" value="{{ old('latitude') }}">
+                            <input type="text" name="latitude" class="form-control" value="<?php echo e(old('latitude')); ?>">
                         </div>
                     </div>
                 </div>
@@ -35,16 +34,16 @@
                         <div class="form-group">
                             <label for="region">Select Region*</label>
                             <select name="region" class="form-control" id="region">
-                                @foreach($regions as $region)
-                                    <option value="{{ $region->id }}">{{ $region->name }}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $regions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $region): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($region->id); ?>"><?php echo e($region->name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="image">Warehouse Image*</label>
-                            <input type="file" name="image" class="form-control" value="{{ old('image') }}">
+                            <input type="file" name="image" class="form-control" value="<?php echo e(old('image')); ?>">
                         </div>
                     </div>
                 </div>
@@ -55,9 +54,9 @@
                             <label>Select Crop Types*</label>
                             <select class="form-control select2-multi"
                                     name="crops[]" multiple="multiple" id="crops" required>
-                                @foreach($crops as $crop)
-                                    <option value="{{$crop->id}}">{{$crop->name}}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $crops; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $crop): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($crop->id); ?>"><?php echo e($crop->name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                     </div>
@@ -65,9 +64,9 @@
                         <div class="form-group">
                             <label for="">Select User*</label>
                             <select name="user_id" class="form-control">
-                                @foreach($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($user->id); ?>"><?php echo e($user->name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                     </div>
@@ -75,9 +74,9 @@
                 <div class="form-group">
                     <label for="district">Select District</label>
                     <select name="district" id="district" class="form-control">
-                        @foreach($districts as $district)
-                            <option value="{{ $district->id }}" id="{{ $district->region_id }}">{{ $district->name }}</option>
-                        @endforeach
+                        <?php $__currentLoopData = $districts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $district): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($district->id); ?>" id="<?php echo e($district->region_id); ?>"><?php echo e($district->name); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                 </div>
                 <div class="row mb-3">
@@ -134,9 +133,9 @@
             </form>
         </div>
     </div>
-@endsection
-@section('scripts')
-    <script src="{{ asset('js/select2.min.js') }}"></script>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts'); ?>
+    <script src="<?php echo e(asset('js/select2.min.js')); ?>"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.select2-multi').select2();
@@ -150,4 +149,6 @@
             } ).trigger( 'change' );
         })
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/agrosourcing/resources/views/admin/warehouse/create.blade.php ENDPATH**/ ?>

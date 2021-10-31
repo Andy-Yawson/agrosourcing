@@ -14,7 +14,7 @@
             <form action="{{ route('user.store.warehouse') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col-6">
                         <div class="form-group">
                             <label for="Longitude">Longitude*</label>
@@ -28,8 +28,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
+                <div class="row mb-3">
+                    <div class="col-6">
                         <div class="form-group">
                             <label for="region">Select Region*</label>
                             <select name="region" class="form-control" id="region">
@@ -39,9 +39,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
+                    <div class="col-6">
                         <div class="form-group">
                             <label for="district">Select District</label>
                             <select name="district" id="district" class="form-control">
@@ -52,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col-6">
                         <div class="form-group">
                             <label>Select Crop Types*</label>
@@ -71,32 +69,50 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-4">
-                        <label for="">Currency*</label>
-                        <select name="currency"  class="form-control">
-                            <option value="GHS">GHS</option>
-                        </select>
-                    </div>
+                <div class="row mb-3">
                     <div class="col-4">
                         <div class="form-group">
-                            <label>Price*</label>
-                            <input type="number" class="form-control" name="price" value="{{ old('price') }}" required>
+                            <label>Type of warehouse*</label>
+                            <select name="type_of_warehouse" class="form-control">
+                                <option value="Certified Seed Storage">Certified Seed Storage</option>
+                                <option value="Harvested Crop Storage">Harvested Crop Storage</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-4">
-                        <label for="">Quantity*</label>
-                        <select name="quantity"  class="form-control">
-                            <option value="Ton">Ton</option>
-                            <option value="Kilogram">Kilogram</option>
-                            <option value="Cubic feet">Cubic feet</option>
-                            <option value="Cubic Meters">Cubic Meters</option>
-                            <option value="Crate">Crate</option>
-                            <option value="Bag">Bag</option>
-                            <option value="Bottle">Bottle</option>
-                            <option value="Unit">Unit</option>
-                            <option value="Box">Box</option>
-                        </select>
+                        <label>Warehouse Storage Capacity (cu ft)</label>
+                        <input type="number" class="form-control" name="storage_capacity" required>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Other services*</label>
+                            <select name="other_services" class="form-control">
+                                <option value="Aflatoxin Testing">Aflatoxin Testing</option>
+                                <option value="Grain Threshing">Grain Threshing</option>
+                                <option value="Moisture Testing">Moisture Testing</option>
+                                <option value="Weighing">Weighing</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>Warehouse Certifications*</label>
+                            <select name="warehouse_certification" class="form-control">
+                                <option value="HACCP - (Hazard Analysis Critical Control Point)">HACCP - (Hazard Analysis Critical Control Point)</option>
+                                <option value="GLOBAL GAP">GLOBAL GAP</option>
+                                <option value="NOP USDA -Organic Certification">NOP USDA -Organic Certification</option>
+                                <option value="EU BIO - Organic Certification">EU BIO - Organic Certification</option>
+                                <option value="ISL Certification">ISL Certification</option>
+                                <option value="others">Others</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>Other Certifications</label>
+                        <input type="text" class="form-control" name="other_certification">
+                        <small>Please Add any other Certifications you have that are not listed in the options and <b>separate with a comma</b></small>
                     </div>
                 </div>
                 <div class="form-group">

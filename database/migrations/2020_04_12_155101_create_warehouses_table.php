@@ -18,13 +18,16 @@ class CreateWarehousesTable extends Migration
             $table->integer('region_id')->unsigned();
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
-            $table->string('price');
             $table->string('image');
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('visible')->default(0);
-            $table->string('currency');
-            $table->string('quantity');
             $table->integer('district_id')->unsigned();
+
+            $table->string('type_of_warehouse')->nullable();
+            $table->string('storage_capacity')->nullable();
+            $table->string('other_services')->nullable();
+            $table->string('warehouse_certification')->nullable();
+            $table->string('other_certification')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('region_id')->references('id')->on('regions');

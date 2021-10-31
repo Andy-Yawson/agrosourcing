@@ -9,6 +9,7 @@ use App\Notifications\AdminNotification;
 use App\Notifications\UserNotification;
 use App\Region;
 use App\Warehouse;
+use App\WarehouseCrop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Intervention\Image\Facades\Image;
@@ -50,7 +51,6 @@ class WarehouseController extends Controller
     {
         $this->validate($request,[
             'region' => 'required',
-            'price' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
@@ -58,11 +58,14 @@ class WarehouseController extends Controller
         $warehouse->region_id = $request->region;
         $warehouse->longitude = $request->longitude;
         $warehouse->latitude = $request->latitude;
-        $warehouse->price = $request->price;
         $warehouse->user_id = auth()->user()->id;
-        $warehouse->currency = $request->currency;
-        $warehouse->quantity = $request->quantity;
         $warehouse->district_id = $request->district;
+
+        $warehouse->type_of_warehouse = $request->type_of_warehouse;
+        $warehouse->storage_capacity = $request->storage_capacity. 'cu/ft';
+        $warehouse->other_services = $request->other_services;
+        $warehouse->warehouse_certification = $request->warehouse_certification;
+        $warehouse->other_certification = $request->other_certification;
 
         if ($request->hasFile('image')){
             $image = $request->file('image');
@@ -132,4 +135,56 @@ class WarehouseController extends Controller
     {
         //
     }
+
+    public function details(Warehouse $warehouse){
+        $farmCrops = WarehouseCrop::where('warehouse_id',$warehouse->id)->get();
+        return view('user.aggregator.detail',compact('warehouse','farmCrops'));
+    }
+
+    public function addCropToWarehouse($id){
+        $crops = Crop::all();
+        return view('user.aggregator.create-crop',compact('crops','id'));
+    }
+
+    public function storeFarmCrop(Request $request)
+    {
+        $farm = new WarehouseCrop();
+        $farm->crop_id = $request->crop;
+        $farm->warehouse_id = request('warehouse');
+        $farm->price = $request->price;
+        $farm->currency = $request->currency;
+        $farm->quantity = $request->quantity;
+        $farm->package_quantity = $request->package_quantity;
+        $farm->visible = 0;
+        $farm->crop_variety = $request->crop_variety;
+        $farm->moisture_content = $request->moisture_content . 'g/m³';
+        $farm->available_start = $request->available_start;
+        $farm->available_end = $request->available_end;
+        $farm->total_stock_available = $request->total_stock_available;
+        $farm->total_stock_available_unit = $request->total_stock_available_unit;
+        $farm->minimum_order_quantity = $request->minimum_order_quantity;
+        $farm->minimum_order_quantity_unit = $request->minimum_order_quantity_unit;
+        $farm->delivery_cost_description = $request->delivery_cost_description;
+
+        if ($request->has('organic')){
+            $farm->organic = 1;
+        }else{
+            $farm->organic = 0;
+        }
+        $farm->save();
+
+
+        $title = "Farm Crop";
+        $message = "You added a new farm crop to warehouse successfully!";
+        Notification::send(\auth()->user(),new UserNotification($title,$message));
+
+        return redirect()->route('user.view.warehouse.detail', request('warehouse'))
+            ->with('success','Farm crop added successfully!');
+    }
+
+    public function warehouseCropDetail($id){
+        $detail = WarehouseCrop::where('id',$id)->first();
+        return view('user.aggregator.view_crop_details',compact('detail'));
+    }
+
 }

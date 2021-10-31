@@ -19,8 +19,6 @@
                                 <th>Region</th>
                                 <th>longitude</th>
                                 <th>latitude</th>
-                                <th>Price</th>
-                                <th>Crop Type</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -31,12 +29,6 @@
                                     <td>{{ $warehouse->region->name }}</td>
                                     <td>{{ $warehouse->longitude }}</td>
                                     <td>{{ $warehouse->latitude }}</td>
-                                    <td>{{ $warehouse->currency }}{{ $warehouse->price }}</td>
-                                    <td>
-                                        @foreach($warehouse->crops as $crop)
-                                            {{ $crop->name }}
-                                        @endforeach
-                                    </td>
                                     <td>
                                         @if($warehouse->visible == 0)
                                             <a class="btn btn-success" href="{{ route('user.open.sale.warehouse', $warehouse->id) }}">Offer for sale</a>
@@ -45,6 +37,7 @@
                                         @elseif($warehouse->visible == 2)
                                             <a class="btn btn-danger" href="{{ route('user.close.sale.warehouse', $warehouse->id) }}">Remove from live</a>
                                         @endif
+                                            <a class="btn btn-primary" href="{{ route('user.view.warehouse.detail', $warehouse->id) }}">View</a>
                                     </td>
                                 </tr>
                             @endforeach

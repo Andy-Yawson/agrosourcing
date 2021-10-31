@@ -19,8 +19,6 @@
                                 <th>Owner</th>
                                 <th>Region</th>
                                 <th>District</th>
-                                <th>Price</th>
-                                <th>Crop Type</th>
                                 <th>longitude</th>
                                 <th>latitude</th>
                                 <th>Action</th>
@@ -33,12 +31,6 @@
                                     <td>@if ($warehouse->user_id != null){{$warehouse->user->name}}@else N/A @endif</td>
                                     <td>{{ $warehouse->region->name }}</td>
                                     <td>{{ $warehouse->district->name }}</td>
-                                    <td>{{ $warehouse->price }}</td>
-                                    <td>
-                                        @foreach($warehouse->crops as $crop)
-                                            {{ $crop->name }}
-                                        @endforeach
-                                    </td>
                                     <td>{{ $warehouse->longitude }}</td>
                                     <td>{{ $warehouse->latitude }}</td>
                                     <td>
@@ -50,6 +42,7 @@
                                             @else
                                                 <p class="text-success">Active</p>
                                             @endif
+                                                <a class="btn btn-primary" href="{{ route('admin.view.warehouse.detail', $warehouse->id) }}">View</a>
                                         @endif
                                     </td>
                                 </tr>

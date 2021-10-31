@@ -63,6 +63,10 @@ Route::prefix('user')->group(function (){
     Route::get('/add-warehouse','WarehouseController@create')->name('user.add.warehouse');
     Route::post('/add-warehouse','WarehouseController@store')->name('user.store.warehouse');
     Route::get('/view-warehouse','WarehouseController@index')->name('user.view.warehouse');
+    Route::get('/view-warehouse/{warehouse}/detail','WarehouseController@details')->name('user.view.warehouse.detail');
+    Route::get('/add-crop-to-warehouse/{warehouse}','WarehouseController@addCropToWarehouse')->name('user.warehouse.addCrop');
+    Route::post('/add-crop-to-warehouse','WarehouseController@storeFarmCrop')->name('user.warehouse.addCrop.store');
+    Route::get('/warehouse-crop-detail/{id}','WarehouseController@warehouseCropDetail')->name('user.warehouse.crop.detail');
 
     //========= PRODUCT ===========
     Route::get('/add-processing-site','ProductController@create')->name('user.add.site');
@@ -132,6 +136,12 @@ Route::prefix('admin')->group(function (){
     Route::get('/view-warehouse', 'AdminController@viewWarehouse')->name('admin.view.warehouse');
     Route::get('/show-warehouse/{warehouse}', 'AdminController@showWarehouse')->name('admin.show.warehouse');
     Route::get('/hide-warehouse/{warehouse}', 'AdminController@hideWarehouse')->name('admin.hide.warehouse');
+    Route::get('/view-warehouse/{warehouse}/detail','AdminController@warehouseDetail')->name('admin.view.warehouse.detail');
+
+    Route::get('/add-crop-to-warehouse/{warehouse}','AdminController@addCropToWarehouse')->name('admin.warehouse.addCrop');
+    Route::post('/add-crop-to-warehouse','AdminController@warehouseStoreFarmCrop')->name('admin.warehouse.addCrop.store');
+    Route::get('/warehouse-crop-detail/{id}','AdminController@warehouseCropDetail')->name('admin.warehouse.crop.detail');
+
     //======== Farm =======
     Route::get('/add-farm', 'AdminController@addFarm')->name('admin.add.farm');
     Route::get('/add-crop', 'AdminController@addFarmCrop')->name('admin.add.farm.crop');

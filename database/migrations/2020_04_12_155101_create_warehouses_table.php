@@ -15,10 +15,10 @@ class CreateWarehousesTable extends Migration
     {
         Schema::create('warehouses', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('name')->nullable();
             $table->integer('region_id')->unsigned();
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
-            $table->string('image');
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('visible')->default(0);
             $table->integer('district_id')->unsigned();

@@ -194,12 +194,9 @@ class AdminController extends Controller
     // ================ Warehouse Controllers ============
     public function storeWarehouse(Request $request)
     {
-        $this->validate($request,[
-            'region' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
-        ]);
 
         $warehouse = new Warehouse();
+        $warehouse->name = $request->warehouseName;
         $warehouse->region_id = $request->region;
         $warehouse->longitude = $request->longitude;
         $warehouse->latitude = $request->latitude;
@@ -209,7 +206,6 @@ class AdminController extends Controller
         $warehouse->type_of_warehouse = $request->type_of_warehouse;
         $warehouse->storage_capacity = $request->storage_capacity . 'cu/ft';
         $warehouse->other_services = $request->other_services;
-        $warehouse->warehouse_certification = $request->warehouse_certification;
         $warehouse->other_certification = $request->other_certification;
 
         if ($request->hasFile('image')){
@@ -219,9 +215,12 @@ class AdminController extends Controller
             Image::make($image)->resize(450, 320)->save($location,90);
             $warehouse->image = $new_name;
         }
-
+        $certification = '';
+        foreach ($request->warehouse_certification as $cert){
+            $certification .= $cert . ', ';
+        }
+        $warehouse->warehouse_certification = $certification;
         $warehouse->save();
-        $warehouse->crops()->sync($request->crops, false);
 
         \auth()->user()->warehouses()->sync($warehouse, false);
 

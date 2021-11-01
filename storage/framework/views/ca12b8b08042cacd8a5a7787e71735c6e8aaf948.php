@@ -14,7 +14,10 @@
             <?php echo $__env->make('flash._notify', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             <form action="<?php echo e(route('admin.store.warehouse')); ?>" method="post" enctype="multipart/form-data">
                 <?php echo csrf_field(); ?>
-
+                <div class="form-group">
+                    <label for="warehouseName">Warehouse Name</label>
+                    <input type="text" name="warehouseName" class="form-control"  value="<?php echo e(old('warehouseName')); ?>" required>
+                </div>
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
@@ -42,24 +45,17 @@
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="image">Warehouse Image*</label>
-                            <input type="file" name="image" class="form-control" value="<?php echo e(old('image')); ?>">
+                            <label for="district">Select District</label>
+                            <select name="district" id="district" class="form-control">
+                                <?php $__currentLoopData = $districts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $district): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($district->id); ?>" id="<?php echo e($district->region_id); ?>"><?php echo e($district->name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label>Select Crop Types*</label>
-                            <select class="form-control select2-multi"
-                                    name="crops[]" multiple="multiple" id="crops" required>
-                                <?php $__currentLoopData = $crops; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $crop): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option value="<?php echo e($crop->id); ?>"><?php echo e($crop->name); ?></option>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            </select>
-                        </div>
-                    </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="">Select User*</label>
@@ -70,17 +66,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="district">Select District</label>
-                    <select name="district" id="district" class="form-control">
-                        <?php $__currentLoopData = $districts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $district): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <option value="<?php echo e($district->id); ?>" id="<?php echo e($district->region_id); ?>"><?php echo e($district->name); ?></option>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    </select>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-4">
+                    <div class="col-6">
                         <div class="form-group">
                             <label>Type of warehouse*</label>
                             <select name="type_of_warehouse" class="form-control">
@@ -89,11 +75,14 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-4">
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-6">
                         <label>Warehouse Storage Capacity (cu ft)</label>
                         <input type="number" class="form-control" name="storage_capacity" required>
                     </div>
-                    <div class="col-4">
+                    <div class="col-6">
                         <div class="form-group">
                             <label>Other services*</label>
                             <select name="other_services" class="form-control">
@@ -109,7 +98,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label>Warehouse Certifications*</label>
-                            <select name="warehouse_certification" class="form-control">
+                            <select name="warehouse_certification[]" class="form-control select2-multi" multiple="multiple">
                                 <option value="HACCP - (Hazard Analysis Critical Control Point)">HACCP - (Hazard Analysis Critical Control Point)</option>
                                 <option value="GLOBAL GAP">GLOBAL GAP</option>
                                 <option value="NOP USDA -Organic Certification">NOP USDA -Organic Certification</option>

@@ -248,17 +248,19 @@ class AdminController extends Controller
             return view('admin.warehouse.view',compact('warehouses'));
         }
     }
-    public function showWarehouse(Warehouse $warehouse){
-        $warehouse->visible = 2;
-        $warehouse->save();
+    public function showWarehouse($id){
+        $warehouseCrop = WarehouseCrop::find($id);
+        $warehouseCrop->visible = 2;
+        $warehouseCrop->save();
         return redirect()->route('admin.view.warehouse')
-            ->with('success','Warehouse successfully updated!');
+            ->with('success','Warehouse crop successfully updated!');
     }
-    public function hideWarehouse(Warehouse $warehouse){
-        $warehouse->visible = 0;
-        $warehouse->save();
+    public function hideWarehouse($id){
+        $warehouseCrop = WarehouseCrop::find($id);
+        $warehouseCrop->visible = 0;
+        $warehouseCrop->save();
         return redirect()->route('admin.view.warehouse')
-            ->with('success','Warehouse successfully updated!');
+            ->with('success','Warehouse crop successfully updated!');
     }
     public function warehouseDetail(Warehouse $warehouse){
         $farmCrops = WarehouseCrop::where('warehouse_id',$warehouse->id)->get();

@@ -59,6 +59,13 @@
                                 <td>{{ $crop->currency }}{{ $crop->price }}</td>
                                 <td>{{ $crop->package_quantity }} {{ $crop->quantity }}</td>
                                 <td>
+                                    @if($crop->visible == 0)
+                                        <a class="btn btn-success" href="{{ route('user.warehouse.crop.open', $crop->id) }}">Offer for sale</a>
+                                    @elseif($crop->visible == 1)
+                                        <a class="btn btn-warning text-white" disabled>Pending Approval</a>
+                                    @elseif($crop->visible == 2)
+                                        <a class="btn btn-danger" href="{{ route('user.warehouse.crop.close', $warehouse->id) }}">Remove from live</a>
+                                    @endif
                                     <a class="btn btn-success" href="{{ route('user.warehouse.crop.detail', $crop->id) }}">Details</a>
                                 </td>
                             </tr>

@@ -94,49 +94,6 @@ class WarehouseController extends Controller
             ->with('success','Warehouse successfully added!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Warehouse  $warehouse
-     */
-    public function show(Warehouse $warehouse)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Warehouse  $warehouse
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Warehouse $warehouse)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Warehouse  $warehouse
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Warehouse $warehouse)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Warehouse  $warehouse
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Warehouse $warehouse)
-    {
-        //
-    }
 
     public function details(Warehouse $warehouse){
         $farmCrops = WarehouseCrop::where('warehouse_id',$warehouse->id)->get();
@@ -187,6 +144,30 @@ class WarehouseController extends Controller
     public function warehouseCropDetail($id){
         $detail = WarehouseCrop::where('id',$id)->first();
         return view('user.aggregator.view_crop_details',compact('detail'));
+    }
+
+    public function openCropSale($id){
+        WarehouseCrop::where('id', $id)->update([
+            'visible' => 1
+        ]);
+        $admins = Admin::where('level',1)->get();
+        $messageAdmin = "A new warehouse crop is ready for approval!";
+        foreach ($admins as $admin){
+            Notification::send($admin, new AdminNotification($messageAdmin));
+        }
+        return redirect()->back()->with('success','Offer updated!');
+    }
+
+    public function closeCropSale($id){
+        Warehouse::where('id', $id)->update([
+            'visible' => 0
+        ]);
+        $admins = Admin::where('level',1)->get();
+        $messageAdmin = "A warehouse crop is removed from marketplace!";
+        foreach ($admins as $admin){
+            Notification::send($admin, new AdminNotification($messageAdmin));
+        }
+        return redirect()->back()->with('success','Offer updated!');
     }
 
 }

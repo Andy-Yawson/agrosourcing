@@ -7,6 +7,7 @@ use App\FarmCrop;
 use App\ProcessingProduct;
 use App\Product;
 use App\Warehouse;
+use App\WarehouseCrop;
 use Illuminate\Http\Request;
 
 class WebsiteController extends Controller
@@ -63,7 +64,7 @@ class WebsiteController extends Controller
 
         $farms = FarmCrop::where('visible',2)->get();
         $products = ProcessingProduct::where('visible',2)->get();
-        $warehouses = Warehouse::where('visible',2)->get();
+        $warehouses = WarehouseCrop::where('visible',2)->get();
 
         return view('website.marketplace',compact('farms','warehouses','products'));
     }

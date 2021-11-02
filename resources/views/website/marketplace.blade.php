@@ -30,25 +30,23 @@
                                     </div>
                                 </div>
                             @endforeach
-                            @foreach($warehouses as $warehouse)
+                            @foreach($warehouses as $crop)
                                 <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12 mb-3">
                                     <div class="card shadow-sm">
-                                        <img class="card-img-top" src="{{ asset('img/warehouses/'.$warehouse->image) }}" alt="warehouse image" height="200px">
+                                        <img class="card-img-top" src="https://via.placeholder.com/150" alt="warehouse image" height="200px">
                                         <div class="card-body">
-                                            <h5 class="card-title"><i class="fa fa-dot-circle text-warning"></i> Warehouse</h5>
+                                            <h5 class="card-title"><i class="fa fa-dot-circle text-warning"></i> Warehouse Crop</h5>
                                             <h6 class="card-text">
-                                                @if($warehouse->user_id != null)
-                                                    {{ $warehouse->user->name }}'s Warehouse
-                                                    @if($warehouse->user->profile->company !== null) - {{ $warehouse->user->profile->company }}@endif
+                                                @if($crop->user_id != null)
+                                                    {{ $crop->user->name }}'s Warehouse
+                                                    @if($crop->user->profile->company !== null) - {{ $crop->user->profile->company }}@endif
                                                 @else
                                                     Agrosourcing Support
                                                 @endif
                                             </h6>
-                                            <p class="card-text">{{ $warehouse->region->name }}</p>
-                                            <p class="card-text">Crop Type(s): {{$warehouse->crops[0]->name}} </p>
-                                            <p class="card-text">Price: {{$warehouse->currency}}{{ $warehouse->price }} per {{$warehouse->quantity}} </p>
-                                            <a href="{{ route('user.view.orderList.detail',['id'=>$warehouse->id,'type'=>'warehouse']) }}" class="btn btn-circle btn-primary"><i class="fa fa-cart-plus"></i></a>
-                                            <p class="card-text"><small class="text-muted">Last updated {{\Carbon\Carbon::parse($warehouse->updated_at)->diffForHumans()}}</small></p>
+                                            <p class="card-text">Variety: {{ $crop->crop_variety }}</p>
+                                            <p class="card-text">Price: {{$crop->currency . $crop->price }} </p>
+                                            <p class="card-text">Quantity: {{$crop->package_quantity . ' ' . $crop->quantity }} </p>
                                         </div>
                                     </div>
                                 </div>

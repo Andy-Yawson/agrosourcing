@@ -16,6 +16,7 @@
                             <thead>
                             <tr>
                                 <th>Created On</th>
+                                <th>Name</th>
                                 <th>Region</th>
                                 <th>longitude</th>
                                 <th>latitude</th>
@@ -26,18 +27,12 @@
                             @foreach($warehouses as $warehouse)
                                 <tr>
                                     <td>{{ \Carbon\Carbon::parse($warehouse->created_at)->format('dS M Y') }}</td>
+                                    <td>{{ $warehouse->name }}</td>
                                     <td>{{ $warehouse->region->name }}</td>
                                     <td>{{ $warehouse->longitude }}</td>
                                     <td>{{ $warehouse->latitude }}</td>
                                     <td>
-                                        @if($warehouse->visible == 0)
-                                            <a class="btn btn-success" href="{{ route('user.open.sale.warehouse', $warehouse->id) }}">Offer for sale</a>
-                                        @elseif($warehouse->visible == 1)
-                                            <a class="btn btn-warning text-white" disabled>Pending Approval</a>
-                                        @elseif($warehouse->visible == 2)
-                                            <a class="btn btn-danger" href="{{ route('user.close.sale.warehouse', $warehouse->id) }}">Remove from live</a>
-                                        @endif
-                                            <a class="btn btn-primary" href="{{ route('user.view.warehouse.detail', $warehouse->id) }}">View</a>
+                                        <a class="btn btn-primary" href="{{ route('user.view.warehouse.detail', $warehouse->id) }}">View</a>
                                     </td>
                                 </tr>
                             @endforeach

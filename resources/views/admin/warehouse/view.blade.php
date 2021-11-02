@@ -16,6 +16,7 @@
                             <thead>
                             <tr>
                                 <th>Created On</th>
+                                <th>Name</th>
                                 <th>Owner</th>
                                 <th>Region</th>
                                 <th>District</th>
@@ -28,6 +29,7 @@
                             @foreach($warehouses as $warehouse)
                                 <tr>
                                     <td>{{ \Carbon\Carbon::parse($warehouse->created_at)->format('dS M Y') }}</td>
+                                    <td>{{  $warehouse->name }}</td>
                                     <td>@if ($warehouse->user_id != null){{$warehouse->user->name}}@else N/A @endif</td>
                                     <td>{{ $warehouse->region->name }}</td>
                                     <td>{{ $warehouse->district->name }}</td>
@@ -35,14 +37,7 @@
                                     <td>{{ $warehouse->latitude }}</td>
                                     <td>
                                         @if(auth()->user()->level == 1)
-                                            @if($warehouse->visible == 1)
-                                                <a class="btn btn-success" href="{{ route('admin.show.warehouse',$warehouse->id) }}"><i class="fa fa-thumbs-up"></i> Go live</a>
-                                            @elseif($warehouse->visible == 0)
-                                                <p class="text-success">unpublished</p>
-                                            @else
-                                                <p class="text-success">Active</p>
-                                            @endif
-                                                <a class="btn btn-primary" href="{{ route('admin.view.warehouse.detail', $warehouse->id) }}">View</a>
+                                            <a class="btn btn-primary" href="{{ route('admin.view.warehouse.detail', $warehouse->id) }}">View</a>
                                         @endif
                                     </td>
                                 </tr>

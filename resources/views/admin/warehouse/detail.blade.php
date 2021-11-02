@@ -59,6 +59,13 @@
                                 <td>{{ $crop->currency }}{{ $crop->price }}</td>
                                 <td>{{ $crop->package_quantity }} {{ $crop->quantity }}</td>
                                 <td>
+                                    @if($crop->visible == 1)
+                                        <a class="btn btn-success" href="{{ route('admin.show.warehouse.crop',$crop->id) }}"><i class="fa fa-thumbs-up"></i> Go live</a>
+                                    @elseif($crop->visible == 0)
+                                        <p class="text-success">unpublished</p>
+                                    @else
+                                        <p class="text-success">Active</p>
+                                    @endif
                                     <a class="btn btn-success" href="{{ route('admin.warehouse.crop.detail', $crop->id) }}">Details</a>
                                 </td>
                             </tr>

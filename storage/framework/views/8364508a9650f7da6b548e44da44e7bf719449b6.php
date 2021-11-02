@@ -58,6 +58,13 @@
                                 <td><?php echo e($crop->currency); ?><?php echo e($crop->price); ?></td>
                                 <td><?php echo e($crop->package_quantity); ?> <?php echo e($crop->quantity); ?></td>
                                 <td>
+                                    <?php if($crop->visible == 1): ?>
+                                        <a class="btn btn-success" href="<?php echo e(route('admin.show.warehouse.crop',$crop->id)); ?>"><i class="fa fa-thumbs-up"></i> Go live</a>
+                                    <?php elseif($crop->visible == 0): ?>
+                                        <p class="text-success">unpublished</p>
+                                    <?php else: ?>
+                                        <p class="text-success">Active</p>
+                                    <?php endif; ?>
                                     <a class="btn btn-success" href="<?php echo e(route('admin.warehouse.crop.detail', $crop->id)); ?>">Details</a>
                                 </td>
                             </tr>

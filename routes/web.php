@@ -67,6 +67,8 @@ Route::prefix('user')->group(function (){
     Route::get('/add-crop-to-warehouse/{warehouse}','WarehouseController@addCropToWarehouse')->name('user.warehouse.addCrop');
     Route::post('/add-crop-to-warehouse','WarehouseController@storeFarmCrop')->name('user.warehouse.addCrop.store');
     Route::get('/warehouse-crop-detail/{id}','WarehouseController@warehouseCropDetail')->name('user.warehouse.crop.detail');
+    Route::get('/warehouse-crop/{id}/open','WarehouseController@openCropSale')->name('user.warehouse.crop.open');
+    Route::get('/warehouse-crop/{id}/close','WarehouseController@closeCropSale')->name('user.warehouse.crop.close');
 
     //========= PRODUCT ===========
     Route::get('/add-processing-site','ProductController@create')->name('user.add.site');
@@ -134,8 +136,8 @@ Route::prefix('admin')->group(function (){
     Route::get('/add-warehouse', 'AdminController@addWarehouse')->name('admin.add.warehouse');
     Route::post('/add-warehouse', 'AdminController@storeWarehouse')->name('admin.store.warehouse');
     Route::get('/view-warehouse', 'AdminController@viewWarehouse')->name('admin.view.warehouse');
-    Route::get('/show-warehouse/{warehouse}', 'AdminController@showWarehouse')->name('admin.show.warehouse');
-    Route::get('/hide-warehouse/{warehouse}', 'AdminController@hideWarehouse')->name('admin.hide.warehouse');
+    Route::get('/show-warehouse/{id}', 'AdminController@showWarehouse')->name('admin.show.warehouse.crop');
+    Route::get('/hide-warehouse/{id}', 'AdminController@hideWarehouse')->name('admin.hide.warehouse.crop');
     Route::get('/view-warehouse/{warehouse}/detail','AdminController@warehouseDetail')->name('admin.view.warehouse.detail');
 
     Route::get('/add-crop-to-warehouse/{warehouse}','AdminController@addCropToWarehouse')->name('admin.warehouse.addCrop');

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\Animal;
+use App\AnimalInfo;
 use App\Crop;
 use App\District;
 use App\Farm;
@@ -11,6 +13,7 @@ use App\Notifications\AdminNotification;
 use App\Notifications\UserNotification;
 use App\Region;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Intervention\Image\Facades\Image;
 
@@ -151,5 +154,39 @@ class FarmController extends Controller
 
         return redirect()->route('user.view.farm')
             ->with('success','Farm crop added successfully!');
+    }
+
+    public function addAnimal(){
+        $animals = Animal::all();
+        return view('user.farmer.animal_create',compact('animals'));
+    }
+
+    public function viewAnimals(){
+        $animals = AnimalInfo::where('user_id',auth()->id())->get();
+        return view('user.farmer.view_animals',compact('animals'));
+    }
+
+    public function storeAnimal(Request $request){
+        $this->validate($request,[
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:3048'
+        ]);
+        $animal = new AnimalInfo();
+        $animal->no_of_stock = $request->no_of_stock;
+        $animal->min_order_qty = $request->min_order_qty;
+        $animal->currency = $request->currency;
+        $animal->unit_price = $request->unit_price;
+        $animal->delivery_desc = $request->delivery_desc;
+        $animal->animal_id = $request->animal_id;
+        $animal->user_id = Auth::id();
+
+        if ($request->hasFile('image')){
+            $image = $request->file('image');
+            $new_name = time() . "." . $image->getClientOriginalExtension();
+            $location = public_path('img/farms/'.$new_name);
+            Image::make($image)->resize(450, 320)->save($location,90);
+            $animal->image = $new_name;
+        }
+        $animal->save();
+        return redirect()->route('user.farm.animal.view')->with('success','New farm animal added successfully!');
     }
 }

@@ -58,6 +58,9 @@ Route::prefix('user')->group(function (){
     Route::get('/view-farm', 'FarmController@index')->name('user.view.farm');
     Route::get('/{farm}/view-farm-crops', 'FarmController@viewCrops')->name('user.view.farm.crop');
     Route::get('/{id}/view-farm-crops-detail', 'FarmController@viewCropDetail')->name('user.detail.farm.crop');
+    Route::get('/animal/create', 'FarmController@addAnimal')->name('user.farm.animal');
+    Route::post('/animal/create', 'FarmController@storeAnimal')->name('user.farm.animal.store');
+    Route::get('/animals/view', 'FarmController@viewAnimals')->name('user.farm.animal.view');
 
     //========= AGGREGATOR ===========
     Route::get('/add-warehouse','WarehouseController@create')->name('user.add.warehouse');
@@ -154,6 +157,11 @@ Route::prefix('admin')->group(function (){
     Route::get('/show-farm/{farm}', 'AdminController@showFarm')->name('admin.show.farm');
     Route::get('/hide-farm/{farm}', 'AdminController@hideFarm')->name('admin.hide.farm');
     Route::get('/{id}/view-farm-crops-detail', 'AdminController@viewCropDetail')->name('admin.detail.farm.crop');
+    //===== add new animals ====
+    Route::get('/add-animal', 'AdminController@viewAnimal')->name('admin.add.animal');
+    Route::post('/add-animal', 'AdminController@storeAnimal')->name('admin.store.animal');
+    Route::get('/animal/{animal}/delete', 'AdminController@deleteAnimal')->name('admin.delete.animal');
+    Route::get('/manage-animal', 'AdminController@viewAnimals')->name('admin.view.farm.animal');
 
     //========== Users============
     Route::get('/users', 'AdminController@viewUsers')->name('admin.view.users');

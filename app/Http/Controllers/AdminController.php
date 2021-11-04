@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\Animal;
+use App\AnimalInfo;
 use App\Crop;
 use App\District;
 use App\Farm;
@@ -745,5 +747,25 @@ class AdminController extends Controller
         return view('admin.map.map',compact('farms','warehouses','products'));
     }
 
+    //===== show animals DB insertion and deletion
+    public function viewAnimal(){
+        $animals = Animal::all();
+        return view('admin.animal.add',compact('animals'));
+    }
+
+    public function storeAnimal(Request $request){
+        Animal::create(['name'=>$request->animal]);
+        return redirect()->back()->with('success','New animal added!');
+    }
+
+    public function deleteAnimal(Animal $animal){
+        $animal->delete();
+        return redirect()->back()->with('success','Animal deleted successfully!');
+    }
+
+    public function viewAnimals(){
+        $animals = AnimalInfo::all();
+        return view('admin.farm.view_animals',compact('animals'));
+    }
 
 }

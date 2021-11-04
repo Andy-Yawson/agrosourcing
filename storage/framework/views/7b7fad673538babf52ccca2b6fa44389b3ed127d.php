@@ -44,7 +44,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAggregator" aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
-            <span>Aggregator</span>
+            <span>Manage Warehouse</span>
         </a>
         <div id="collapseAggregator" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
@@ -114,6 +114,18 @@
         <a class="nav-link" href="#" data-toggle="modal" data-target="#searchModal">
             <i class="fa fa-map"></i>
             <span>Access Map</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAnimals" aria-expanded="true" aria-controls="collapsePages">
+            <i class="fa fa-dog"></i>
+            <span>Manage Animals</span>
+        </a>
+        <div id="collapseAnimals" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="<?php echo e(route('admin.add.animal')); ?>">Add new animal</a>
+                <a class="collapse-item" href="<?php echo e(route('admin.view.farm.animal')); ?>">View Farm Animals</a>
+            </div>
+        </div>
     </li>
 
     <hr class="sidebar-divider my-0">

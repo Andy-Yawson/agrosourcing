@@ -43,6 +43,7 @@
                         <a class="collapse-item" href="{{ route('user.view.farm') }}">View Farm</a>
                         <a class="collapse-item" href="{{ route('user.add.farm') }}">Add Farm</a>
                         <a class="collapse-item" href="{{ route('user.add.crop') }}">Add Crop</a>
+                        <a class="collapse-item" href="{{ route('user.farm.animal.view') }}">View animal farm</a>
                     </div>
                 </div>
             </li>

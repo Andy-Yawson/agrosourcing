@@ -20,6 +20,7 @@
                                 <th>Price</th>
                                 <th>Delivery Desc</th>
                                 <th>Animal</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -31,6 +32,15 @@
                                     <td>{{ $animal->currency . ' ' . $animal->unit_price }}</td>
                                     <td>{{ $animal->delivery_desc }}</td>
                                     <td>{{ $animal->animal->name }}</td>
+                                    <td>
+                                        @if($animal->status == 1)
+                                            <a class="btn btn-warning" href="{{ route('admin.publish.animal', $animal->id) }}">Publish to market</a>
+                                        @elseif($animal->status == 0)
+                                            <p class="text-info">Pending</p>
+                                        @elseif($animal->status == 2)
+                                            <p class="text-success">Published</p>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

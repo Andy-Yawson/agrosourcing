@@ -15,6 +15,7 @@
         <div class="card-body">
             <form action="{{ route('user.farm.animal.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" value="{{ request('id') }}" name="farm_id">
                 <div class="form-group mb-4">
                     <label for="">Select animal from list*</label>
                     <select class="form-control" name="animal_id">

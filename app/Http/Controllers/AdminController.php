@@ -768,4 +768,10 @@ class AdminController extends Controller
         return view('admin.farm.view_animals',compact('animals'));
     }
 
+    public function publishAnimal(AnimalInfo $animalInfo){
+        $animalInfo->status = 2;
+        $animalInfo->update();
+        return redirect()->back()->with('success','Publish animal to marketplace!');
+    }
+
 }

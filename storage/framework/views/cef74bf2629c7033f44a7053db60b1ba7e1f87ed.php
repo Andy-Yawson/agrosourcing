@@ -13,6 +13,7 @@
         <div class="card-body">
             <form action="<?php echo e(route('user.farm.animal.store')); ?>" method="post" enctype="multipart/form-data">
                 <?php echo csrf_field(); ?>
+                <input type="hidden" value="<?php echo e(request('id')); ?>" name="farm_id">
                 <div class="form-group mb-4">
                     <label for="">Select animal from list*</label>
                     <select class="form-control" name="animal_id">

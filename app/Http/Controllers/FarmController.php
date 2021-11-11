@@ -87,7 +87,8 @@ class FarmController extends Controller
 
     public function viewCrops(Farm $farm){
         $crops = $farm->farmCrops;
-        return view('user.farm_crop.view',compact('crops'));
+        $animals = AnimalInfo::where('farm_id',$farm->id)->get();
+        return view('user.farm_crop.view',compact('crops','animals'));
     }
 
     public function viewCropDetail($id){
@@ -177,6 +178,7 @@ class FarmController extends Controller
         $animal->unit_price = $request->unit_price;
         $animal->delivery_desc = $request->delivery_desc;
         $animal->animal_id = $request->animal_id;
+        $animal->farm_id = $request->farm_id;
         $animal->user_id = Auth::id();
 
         if ($request->hasFile('image')){
@@ -188,5 +190,17 @@ class FarmController extends Controller
         }
         $animal->save();
         return redirect()->route('user.farm.animal.view')->with('success','New farm animal added successfully!');
+    }
+
+    public function animalOpenForSale(AnimalInfo $animalInfo){
+        $animalInfo->status = 1;
+        $animalInfo->update();
+        return redirect()->back()->with('success','Farm animal open for sale');
+    }
+
+    public function animalCloseForSale(AnimalInfo $animalInfo){
+        $animalInfo->status = 0;
+        $animalInfo->update();
+        return redirect()->back()->with('success','Farm animal close for sale');
     }
 }

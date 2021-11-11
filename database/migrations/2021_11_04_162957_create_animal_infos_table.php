@@ -23,8 +23,11 @@ class CreateAnimalInfosTable extends Migration
             $table->text('delivery_desc')->nullable();
             $table->integer('status')->default(0);
             $table->foreignId('animal_id')->references('id')->on('animals');
+            $table->integer('farm_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('farm_id')->references('id')->on('farms');
         });
     }
 

@@ -10,9 +10,6 @@
             @include('flash._notify')
             <div class="card shadow mb-4">
                 <div class="card-body">
-                    <div class="mb-3">
-                        <a class="btn btn-primary" href="{{ route('user.farm.animal') }}"><i class="fa fa-plus"></i> Add Farm Animal</a>
-                    </div>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>

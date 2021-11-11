@@ -19,6 +19,7 @@
                                 <th>Price</th>
                                 <th>Delivery Desc</th>
                                 <th>Animal</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -30,6 +31,15 @@
                                     <td><?php echo e($animal->currency . ' ' . $animal->unit_price); ?></td>
                                     <td><?php echo e($animal->delivery_desc); ?></td>
                                     <td><?php echo e($animal->animal->name); ?></td>
+                                    <td>
+                                        <?php if($animal->status == 1): ?>
+                                            <a class="btn btn-warning" href="<?php echo e(route('admin.publish.animal', $animal->id)); ?>">Publish to market</a>
+                                        <?php elseif($animal->status == 0): ?>
+                                            <p class="text-info">Pending</p>
+                                        <?php elseif($animal->status == 2): ?>
+                                            <p class="text-success">Published</p>
+                                        <?php endif; ?>
+                                    </td>
                                 </tr>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
